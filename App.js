@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// Desc: Main entry point for the app
+import { NavigationContainer } from '@react-navigation/native';
+import { PaperProvider , MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
+import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Login from './screens/login.js';
+import Home from './screens/home.js';
+import SignupScreen from './screens/singup.js';
+import Profile from './screens/profile.js';
+
+
+const Stack = createNativeStackNavigator();
+
+
 
 export default function App() {
+
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <PaperProvider >
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={Login} options={{headerShown:false, statusBarHidden:true}} />
+          <Stack.Screen name="Signup" component={SignupScreen} options={{headerShown:false}}/>
+          <Stack.Screen name="Home" component={Home} options={{headerShown:false}} />
+          <Stack.Screen name="Profile" component={Profile} options={{headerShown:false}} />
+        </Stack.Navigator>
+      </PaperProvider>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
