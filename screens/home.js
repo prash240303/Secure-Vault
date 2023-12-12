@@ -26,6 +26,7 @@ function Home({navigation}) {
 
     const route = useRoute();
     const uid = route.params.uid;
+    const user_name = route.params.user_name;
 
     const [loading, setLoading] = React.useState(true);
 
@@ -62,6 +63,8 @@ function Home({navigation}) {
     const handleAdd = () => {
         setModalVisible(true);
     }
+
+
 
     const deleteData = async (index) => {
         console.log(index);
@@ -153,7 +156,7 @@ function Home({navigation}) {
     return (
         <SafeAreaView style={style.homepage}>
             {loading?<Portal><Modal visible={loading} style={style.loading}><ActivityIndicator /></Modal></Portal>:null}
-            <MyAppBar title="Hi there" navigation={navigation} handleAdd={handleAdd}/>
+            <MyAppBar user_name={user_name} navigation={navigation} handleAdd={handleAdd}/>
             <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom:height*0.08}}>
                 <View style={style.searchbar} >
                     <Searchbar placeholder="website name" searchQuery={searchQuery} onChangeText={setSearchQuery}/>

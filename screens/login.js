@@ -17,13 +17,22 @@ function Login({navigation}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const getUsername = (email) => {
+        for(let i = 0;i<email.length;i++){
+            if(email[i]==='@' || email[i]==='.' || email[i]==='-'|| email[i]==='_'){
+                return email.slice(0,i);
+            }
+        }
+    }
+
 
     const handleLogin = () => {
         // handle login logic here
         signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
             const user = userCredential.user;
             const uid = user.uid;
-            navigation.navigate('Home', {uid:uid});
+            const user_name = getUsername(user.email);
+            navigation.navigate('Home', {uid:uid , user_name:user_name});
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;

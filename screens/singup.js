@@ -46,10 +46,19 @@ function SignupScreen({navigation}) {
         };
     }, []);
 
+    const getUsername = (email) => {
+      for(let i = 0;i<email.length;i++){
+          if(email[i]==='@' || email[i]==='.' || email[i]==='-'|| email[i]==='_'){
+              return email.slice(0,i);
+          }
+      }
+  }
+
     const handleSignup = async () => {
         // handle SignupScreen logic here
         await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
           const user = userCredential.user;
+          const user_name = getUsername(user.email);
           const uid = user.uid;
           try{
             fetch(`https://key-api-production.up.railway.app/users`,{
@@ -69,7 +78,7 @@ function SignupScreen({navigation}) {
             console.log(error);
           }
           finally{
-            navigation.navigate('Home' , {uid:uid});
+            navigation.navigate('Home' , {uid:uid , user_name:user_name});
             schedulePushNotification();
           }
         }).catch((error) => {
